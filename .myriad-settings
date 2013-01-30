@@ -1,0 +1,4 @@
+# the data generator name
+MYRIAD_DGEN_NAME = tera-gen
+MYRIAD_DGEN_NS   = TeraGen
+MYRIAD_IS_ARCH64 = True
