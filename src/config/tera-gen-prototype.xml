@@ -4,7 +4,8 @@
   <!-- configurable parameters -->
   <parameters>
     <!-- naming convention {generator_name}.{parameter_name} -->
-    <parameter key="rec.sequence.base_cardinality">1000000</parameter>
+    <parameter key="rec.sequence.base_cardinality">10000000</parameter>
+    <parameter key="rec.output-file">terasort.txt</parameter>
   </parameters>
 
   <!-- function configuration -->

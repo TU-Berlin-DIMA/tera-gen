@@ -99,11 +99,11 @@ struct RecordTraits<TeraGen::Rec>
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 template<>
-inline void OutputTraits<TeraGen::BaseRec>::CollectorType::serialize(OutputTraits<TeraGen::Rec>::CollectorType::StreamType& out, const TeraGen::BaseRec& record)
+inline void AbstractOutputCollector<TeraGen::BaseRec>::serialize(std::stringstream& outputBuffer, const TeraGen::BaseRec& record)
 {
-    write(out, record.key(), false);
-    write(out, record.value(), false);
-    out << '\n';
+    write(outputBuffer, record.key(), false);
+    write(outputBuffer, record.value(), false);
+    outputBuffer << '\n';
 }
 
 } // namespace Myriad
