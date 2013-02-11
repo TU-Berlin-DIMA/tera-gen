@@ -31,17 +31,17 @@ namespace Myriad {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 template<>
-inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::stringstream& outputBuffer, const TeraGen::Rec& record)
+inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::ostream& out, const TeraGen::Rec& record)
 {
     // 10 bytes key
     const vector<Char>& key = record.key();
     for(size_t i = 0; i < key.size(); i++)
     {
-        outputBuffer << key[i];
+        out << key[i];
     }
 
     // 10 bytes rowid
-    outputBuffer << NumberFormatter::format(record.genID(), 10);
+    out << NumberFormatter::format(record.genID(), 10);
 
     // 10 bytes filler
     const vector<Char>& value = record.value();
@@ -49,10 +49,10 @@ inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::stringstream& 
     {
         for (size_t j = 0; j < ((i < value.size()-1) ? 10 : 8); j++)
         {
-            outputBuffer << value[i];
+            out << value[i];
         }
     }
-    outputBuffer << "\r\n";
+    out << "\r\n";
 }
 
 } // namespace Myriad
