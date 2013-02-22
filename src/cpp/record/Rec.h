@@ -47,12 +47,12 @@ inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::ostream& out, 
     const vector<Char>& value = record.value();
     for(size_t i = 0; i < value.size(); i++)
     {
-        for (size_t j = 0; j < ((i < value.size()-1) ? 10 : 8); j++)
+        for (size_t j = 0; j < ((i < value.size()-1) ? 10 : 9); j++)
         {
             out << value[i];
         }
     }
-    out << "\r\n";
+    out << "\n";
 }
 
 } // namespace Myriad
