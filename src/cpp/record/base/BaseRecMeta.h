@@ -3,20 +3,18 @@
 #ifndef BASERECMETA_H_
 #define BASERECMETA_H_
 
-#include "record/Record.h"
-
-using namespace Myriad;
+#include "record/AbstractRecord.h"
 
 namespace TeraGen {
 
 // forward declarations
 class Rec;
 
-class BaseRecMeta : public RecordMeta<Rec>
+class BaseRecMeta : public Myriad::RecordMeta<Rec>
 {
 public:
 
-    BaseRecMeta(const EnumSetPool& enumSets)
+    BaseRecMeta(const Myriad::EnumSetPool& enumSets)
     {
     }
 

@@ -3,10 +3,8 @@
 #ifndef BASEREC_H_
 #define BASEREC_H_
 
-#include "record/Record.h"
+#include "record/AbstractRecord.h"
 #include "record/RecMeta.h"
-
-using namespace Myriad;
 
 namespace TeraGen {
 
@@ -23,7 +21,7 @@ class RecSetterChain;
 // base record type
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-class BaseRec: public Record
+class BaseRec: public Myriad::AbstractRecord
 {
 public:
 
@@ -58,6 +56,7 @@ protected:
 inline void BaseRec::key(const vector<Char>& v)
 {
     _key = v;
+    _key.resize(v.size());
 }
 
 inline const vector<Char>& BaseRec::key() const
@@ -68,6 +67,7 @@ inline const vector<Char>& BaseRec::key() const
 inline void BaseRec::value(const vector<Char>& v)
 {
     _value = v;
+    _value.resize(v.size());
 }
 
 inline const vector<Char>& BaseRec::value() const
@@ -101,9 +101,6 @@ struct RecordTraits<TeraGen::Rec>
 template<>
 inline void AbstractOutputCollector<TeraGen::BaseRec>::serialize(std::ostream& out, const TeraGen::BaseRec& record)
 {
-    write(out, record.key(), false);
-    write(out, record.value(), false);
-    out << '\n';
 }
 
 } // namespace Myriad

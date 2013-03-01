@@ -15,8 +15,8 @@
       <argument key='x_max' type='Char' value='(Char)127' />
     </function>
     <function key='Pr[rec.value.char]' type='uniform_probability[Char]'>
-      <argument key='x_min' type='Char' value='65' />
-      <argument key='x_max' type='Char' value='91' />
+      <argument key='x_min' type='Char' value='(Char)65' />
+      <argument key='x_max' type='Char' value='(Char)91' />
     </function>
   </functions>
 
@@ -29,16 +29,22 @@
       <setter_chain>
         <setter key='set_key' type='field_setter'>
           <argument key='field' type='field_ref' ref='rec:key' />
-          <argument key='value' type='element_wise_value_provider'>
-            <argument key='element_value_provider' type='random_value_provider'>
+          <argument key='value' type='element_wise_value_provider[Char]'>
+            <argument key='element_length_value_provider' type='const_value_provider[I16u]'>
+              <argument key='value' type='I16u' value='10' />
+            </argument>
+            <argument key='element_value_provider' type='random_value_provider[Char]'>
               <argument key='probability' type='function_ref' ref='Pr[rec.key.char]' />
             </argument>
           </argument>
         </setter>
         <setter key='set_value' type='field_setter'>
           <argument key='field' type='field_ref' ref='rec:value' />
-          <argument key='value' type='element_wise_value_provider'>
-            <argument key='element_value_provider' type='random_value_provider'>
+          <argument key='value' type='element_wise_value_provider[Char]'>
+            <argument key='element_length_value_provider' type='const_value_provider[I16u]'>
+              <argument key='value' type='I16u' value='8' />
+            </argument>
+            <argument key='element_value_provider' type='random_value_provider[Char]'>
               <argument key='probability' type='function_ref' ref='Pr[rec.value.char]' />
             </argument>
           </argument>

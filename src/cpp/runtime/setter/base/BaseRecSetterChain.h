@@ -3,14 +3,14 @@
 #ifndef BASERECSETTERCHAIN_H_
 #define BASERECSETTERCHAIN_H_
 
+#include "config/GeneratorConfig.h"
 #include "runtime/setter/SetterChain.h"
 #include "record/Rec.h"
 #include "record/RecUtil.h"
+#include "runtime/provider/value/ConstValueProvider.h"
 #include "runtime/provider/value/ElementWiseValueProvider.h"
 #include "runtime/provider/value/RandomValueProvider.h"
 #include "runtime/setter/FieldSetter.h"
-
-using namespace Myriad;
 
 namespace TeraGen {
 
@@ -21,29 +21,33 @@ namespace TeraGen {
 /**
  * SetterChain specialization for User.
  */
-class BaseRecSetterChain : public SetterChain<Rec>
+class BaseRecSetterChain : public Myriad::SetterChain<Rec>
 {
 public:
 
     // runtime component typedefs
     // runtime components for setter `set_key`
-    typedef RandomValueProvider< Char, Rec, UniformPrFunction<Char>, 0 > ValueProvider01Type;
-    typedef ElementWiseValueProvider< Char, Rec, 10 > ValueProvider02Type;
-    typedef FieldSetter< Rec, RecordTraits<Rec>::KEY, ValueProvider02Type > SetKeyType;
+    typedef Myriad::RandomValueProvider< Char, Rec, Myriad::UniformPrFunction<Char>, 0 > ValueProvider01Type;
+    typedef Myriad::ConstValueProvider< I16u, Rec > ValueProvider02Type;
+    typedef Myriad::ElementWiseValueProvider< Char, Rec, 10 > ValueProvider03Type;
+    typedef Myriad::FieldSetter< Rec, Myriad::RecordTraits<Rec>::KEY, ValueProvider03Type > SetKeyType;
     // runtime components for setter `set_value`
-    typedef RandomValueProvider< Char, Rec, UniformPrFunction<Char>, 0 > ValueProvider03Type;
-    typedef ElementWiseValueProvider< Char, Rec, 8 > ValueProvider04Type;
-    typedef FieldSetter< Rec, RecordTraits<Rec>::VALUE, ValueProvider04Type > SetValueType;
+    typedef Myriad::RandomValueProvider< Char, Rec, Myriad::UniformPrFunction<Char>, 0 > ValueProvider04Type;
+    typedef Myriad::ConstValueProvider< I16u, Rec > ValueProvider05Type;
+    typedef Myriad::ElementWiseValueProvider< Char, Rec, 8 > ValueProvider06Type;
+    typedef Myriad::FieldSetter< Rec, Myriad::RecordTraits<Rec>::VALUE, ValueProvider06Type > SetValueType;
 
-    BaseRecSetterChain(OperationMode& opMode, RandomStream& random, GeneratorConfig& config) :
-        SetterChain<Rec>(opMode, random),
+    BaseRecSetterChain(Myriad::BaseSetterChain::OperationMode& opMode, Myriad::RandomStream& random, Myriad::GeneratorConfig& config) :
+        Myriad::SetterChain<Rec>(opMode, random),
         _sequenceCardinality(config.cardinality("rec")),
-        _valueProvider01(config.function< UniformPrFunction<Char> >("Pr[rec.key.char]")),
-        _valueProvider02(_valueProvider01),
-        _setKey(_valueProvider02),
-        _valueProvider03(config.function< UniformPrFunction<Char> >("Pr[rec.value.char]")),
-        _valueProvider04(_valueProvider03),
-        _setValue(_valueProvider04),
+        _valueProvider01(config.function< Myriad::UniformPrFunction<Char> >("Pr[rec.key.char]")),
+        _valueProvider02(10),
+        _valueProvider03(_valueProvider01, _valueProvider02),
+        _setKey(_valueProvider03),
+        _valueProvider04(config.function< Myriad::UniformPrFunction<Char> >("Pr[rec.value.char]")),
+        _valueProvider05(8),
+        _valueProvider06(_valueProvider04, _valueProvider05),
+        _setValue(_valueProvider06),
         _logger(Logger::get("rec.setter.chain"))
     {
     }
@@ -69,9 +73,9 @@ public:
     /**
      * Predicate filter function.
      */
-    virtual Interval<I64u> filter(const EqualityPredicate<Rec>& predicate)
+    virtual Myriad::Interval<I64u> filter(const Myriad::EqualityPredicate<Rec>& predicate)
     {
-        Interval<I64u> result(0, _sequenceCardinality);
+        Myriad::Interval<I64u> result(0, _sequenceCardinality);
 
         // apply inverse setter chain
         _setKey.filterRange(predicate, result);
@@ -88,11 +92,13 @@ protected:
     // runtime components for setter `set_key`
     ValueProvider01Type _valueProvider01;
     ValueProvider02Type _valueProvider02;
+    ValueProvider03Type _valueProvider03;
     SetKeyType _setKey;
 
     // runtime components for setter `set_value`
-    ValueProvider03Type _valueProvider03;
     ValueProvider04Type _valueProvider04;
+    ValueProvider05Type _valueProvider05;
+    ValueProvider06Type _valueProvider06;
     SetValueType _setValue;
 
     // Logger instance.

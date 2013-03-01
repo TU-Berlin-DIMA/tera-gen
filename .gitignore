@@ -1,3 +1,6 @@
+# ignore the machine-specific tera-gen-frontend.xml file.
+src/config/tera-gen-frontend.xml
+
 # ignore the soft link to the myriad assistant
 # myriad-assistant
 

@@ -16,8 +16,8 @@ template<>
 struct RecordFieldTraits<RecordTraits<TeraGen::Rec>::KEY, TeraGen::Rec>
 {
     typedef vector<Char> FieldType;
-    typedef MethodTraits<TeraGen::Rec, FieldType>::Setter FieldSetterType;
-    typedef MethodTraits<TeraGen::Rec, FieldType>::Getter FieldGetterType;
+    typedef MethodTraits<TeraGen::Rec, FieldType>::RefSetter FieldSetterType;
+    typedef MethodTraits<TeraGen::Rec, FieldType>::RefGetter FieldGetterType;
 
     static inline FieldSetterType setter()
     {
@@ -35,8 +35,8 @@ template<>
 struct RecordFieldTraits<RecordTraits<TeraGen::Rec>::VALUE, TeraGen::Rec>
 {
     typedef vector<Char> FieldType;
-    typedef MethodTraits<TeraGen::Rec, FieldType>::Setter FieldSetterType;
-    typedef MethodTraits<TeraGen::Rec, FieldType>::Getter FieldGetterType;
+    typedef MethodTraits<TeraGen::Rec, FieldType>::RefSetter FieldSetterType;
+    typedef MethodTraits<TeraGen::Rec, FieldType>::RefGetter FieldGetterType;
 
     static inline FieldSetterType setter()
     {

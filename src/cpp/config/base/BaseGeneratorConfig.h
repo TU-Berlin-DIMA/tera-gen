@@ -29,8 +29,8 @@ protected:
     virtual void configureFunctions()
     {
         // register prototype functions
-        function(new UniformPrFunction<Char>("Pr[rec.key.char]", (Char)32, (Char)127));
-        function(new UniformPrFunction<Char>("Pr[rec.value.char]", 65, 91));
+        function(new Myriad::UniformPrFunction<Char>("Pr[rec.key.char]", static_cast<Char>(32), static_cast<Char>(127)));
+        function(new Myriad::UniformPrFunction<Char>("Pr[rec.value.char]", static_cast<Char>(65), static_cast<Char>(91)));
     }
 
     virtual void configureSets()
