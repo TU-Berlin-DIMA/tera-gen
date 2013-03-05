@@ -1,10 +1,10 @@
-// auto-generatad C++ file for `rec`
+// auto-generatad C++ file for `record`
 
-#ifndef BASEREC_H_
-#define BASEREC_H_
+#ifndef BASERECORD_H_
+#define BASERECORD_H_
 
 #include "record/AbstractRecord.h"
-#include "record/RecMeta.h"
+#include "record/RecordMeta.h"
 
 namespace TeraGen {
 
@@ -12,27 +12,27 @@ namespace TeraGen {
 // forward declarations
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-class Rec;
-class RecConfig;
-class RecGenerator;
-class RecSetterChain;
+class Record;
+class RecordConfig;
+class RecordGenerator;
+class RecordSetterChain;
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 // base record type
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-class BaseRec: public Myriad::AbstractRecord
+class BaseRecord: public Myriad::AbstractRecord
 {
 public:
 
-    BaseRec(const RecMeta& meta) : 
+    BaseRecord(const RecordMeta& meta) : 
         _key(10),
         _value(8),
         _meta(meta)
     {
     }
 
-    const RecMeta& meta() const
+    const RecordMeta& meta() const
     {
         return _meta;
     }
@@ -50,27 +50,27 @@ protected:
     vector<Char> _value;
 
     // meta
-    const RecMeta& _meta;
+    const RecordMeta& _meta;
 };
 
-inline void BaseRec::key(const vector<Char>& v)
+inline void BaseRecord::key(const vector<Char>& v)
 {
     _key = v;
     _key.resize(v.size());
 }
 
-inline const vector<Char>& BaseRec::key() const
+inline const vector<Char>& BaseRecord::key() const
 {
     return _key;
 }
 
-inline void BaseRec::value(const vector<Char>& v)
+inline void BaseRecord::value(const vector<Char>& v)
 {
     _value = v;
     _value.resize(v.size());
 }
 
-inline const vector<Char>& BaseRec::value() const
+inline const vector<Char>& BaseRecord::value() const
 {
     return _value;
 }
@@ -84,12 +84,12 @@ namespace Myriad {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 template<>
-struct RecordTraits<TeraGen::Rec>
+struct RecordTraits<TeraGen::Record>
 {
-    typedef TeraGen::RecMeta MetaType;
-    typedef TeraGen::RecGenerator GeneratorType;
-    typedef TeraGen::RecSetterChain SetterChainType;
-    typedef RecordFactory<TeraGen::Rec> FactoryType;
+    typedef TeraGen::RecordMeta MetaType;
+    typedef TeraGen::RecordGenerator GeneratorType;
+    typedef TeraGen::RecordSetterChain SetterChainType;
+    typedef RecordFactory<TeraGen::Record> FactoryType;
 
     enum Field { UNKNOWN, GEN_ID, KEY, VALUE };
 };
@@ -99,10 +99,10 @@ struct RecordTraits<TeraGen::Rec>
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 template<>
-inline void AbstractOutputCollector<TeraGen::BaseRec>::serialize(std::ostream& out, const TeraGen::BaseRec& record)
+inline void AbstractOutputCollector<TeraGen::BaseRecord>::serialize(std::ostream& out, const TeraGen::BaseRecord& record)
 {
 }
 
 } // namespace Myriad
 
-#endif /* BASEREC_H_ */
+#endif /* BASERECORD_H_ */

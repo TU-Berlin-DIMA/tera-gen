@@ -4,54 +4,54 @@
   <!-- configurable parameters -->
   <parameters>
     <!-- naming convention {generator_name}.{parameter_name} -->
-    <parameter key="rec.sequence.base_cardinality">10000000</parameter>
-    <parameter key="rec.output-file">terasort.txt</parameter>
+    <parameter key="record.sequence.base_cardinality">10000000</parameter>
+    <parameter key="record.output-file">terasort.txt</parameter>
   </parameters>
 
   <!-- function configuration -->
   <functions>
-    <function key='Pr[rec.key.char]' type='uniform_probability[Char]'>
+    <function key='Pr[record.key.char]' type='uniform_probability[Char]'>
       <argument key='x_min' type='Char' value='(Char)32' />
       <argument key='x_max' type='Char' value='(Char)127' />
     </function>
-    <function key='Pr[rec.value.char]' type='uniform_probability[Char]'>
+    <function key='Pr[record.value.char]' type='uniform_probability[Char]'>
       <argument key='x_min' type='Char' value='(Char)65' />
       <argument key='x_max' type='Char' value='(Char)91' />
     </function>
   </functions>
 
   <record_sequences>
-    <random_sequence key="rec">
+    <random_sequence key="record">
       <record_type>
         <field name="key" type="Char[10]" />
         <field name='value' type='Char[8]' />
       </record_type>
       <setter_chain>
         <setter key='set_key' type='field_setter'>
-          <argument key='field' type='field_ref' ref='rec:key' />
+          <argument key='field' type='field_ref' ref='record:key' />
           <argument key='value' type='element_wise_value_provider[Char]'>
             <argument key='element_length_value_provider' type='const_value_provider[I16u]'>
               <argument key='value' type='I16u' value='10' />
             </argument>
             <argument key='element_value_provider' type='random_value_provider[Char]'>
-              <argument key='probability' type='function_ref' ref='Pr[rec.key.char]' />
+              <argument key='probability' type='function_ref' ref='Pr[record.key.char]' />
             </argument>
           </argument>
         </setter>
         <setter key='set_value' type='field_setter'>
-          <argument key='field' type='field_ref' ref='rec:value' />
+          <argument key='field' type='field_ref' ref='record:value' />
           <argument key='value' type='element_wise_value_provider[Char]'>
             <argument key='element_length_value_provider' type='const_value_provider[I16u]'>
               <argument key='value' type='I16u' value='8' />
             </argument>
             <argument key='element_value_provider' type='random_value_provider[Char]'>
-              <argument key='probability' type='function_ref' ref='Pr[rec.value.char]' />
+              <argument key='probability' type='function_ref' ref='Pr[record.value.char]' />
             </argument>
           </argument>
         </setter>
       </setter_chain>
       <cardinality_estimator type="linear_scale_estimator">
-        <argument key="base_cardinality" type="I64u" value="%rec.sequence.base_cardinality%" />
+        <argument key="base_cardinality" type="I64u" value="%record.sequence.base_cardinality%" />
       </cardinality_estimator>
       <sequence_iterator type="partitioned_iterator" />
     </random_sequence>

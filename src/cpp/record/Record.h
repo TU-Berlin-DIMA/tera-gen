@@ -1,9 +1,7 @@
-#ifndef REC_H_
-#define REC_H_
+#ifndef RECORD_H_
+#define RECORD_H_
 
-#include "record/base/BaseRec.h"
-
-using namespace Myriad;
+#include "record/base/BaseRecord.h"
 
 namespace TeraGen {
 
@@ -11,12 +9,12 @@ namespace TeraGen {
 // record type
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
-class Rec: public BaseRec
+class Record: public BaseRecord
 {
 public:
 
-    Rec(const RecMeta& meta)
-        : BaseRec(meta)
+    Record(const RecordMeta& meta)
+        : BaseRecord(meta)
     {
     }
 
@@ -31,7 +29,7 @@ namespace Myriad {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 template<>
-inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::ostream& out, const TeraGen::Rec& record)
+inline void AbstractOutputCollector<TeraGen::Record>::serialize(std::ostream& out, const TeraGen::Record& record)
 {
     // 10 bytes key
     const vector<Char>& key = record.key();
@@ -57,4 +55,4 @@ inline void AbstractOutputCollector<TeraGen::Rec>::serialize(std::ostream& out, 
 
 } // namespace Myriad
 
-#endif /* REC_H_ */
+#endif /* RECORD_H_ */

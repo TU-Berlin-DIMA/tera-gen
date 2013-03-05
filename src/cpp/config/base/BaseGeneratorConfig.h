@@ -21,16 +21,16 @@ protected:
     {
         // TODO: this piece of auto-generating code / Config API needs to be rewritten
 
-        // setup linear scale estimator for rec
-        setString("partitioning.rec.base-cardinality", toString<I64u>(parameter<I64u>("rec.sequence.base_cardinality")));
-        computeLinearScalePartitioning("rec");
+        // setup linear scale estimator for record
+        setString("partitioning.record.base-cardinality", toString<I64u>(parameter<I64u>("record.sequence.base_cardinality")));
+        computeLinearScalePartitioning("record");
     }
 
     virtual void configureFunctions()
     {
         // register prototype functions
-        function(new Myriad::UniformPrFunction<Char>("Pr[rec.key.char]", static_cast<Char>(32), static_cast<Char>(127)));
-        function(new Myriad::UniformPrFunction<Char>("Pr[rec.value.char]", static_cast<Char>(65), static_cast<Char>(91)));
+        function(new Myriad::UniformPrFunction<Char>("Pr[record.key.char]", static_cast<Char>(32), static_cast<Char>(127)));
+        function(new Myriad::UniformPrFunction<Char>("Pr[record.value.char]", static_cast<Char>(65), static_cast<Char>(91)));
     }
 
     virtual void configureSets()

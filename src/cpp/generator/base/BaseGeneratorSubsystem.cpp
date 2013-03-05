@@ -1,7 +1,7 @@
 // auto-generatad base generator config C++ file
 
 #include "generator/base/BaseGeneratorSubsystem.h"
-#include "generator/RecGenerator.h"
+#include "generator/RecordGenerator.h"
 
 using namespace std;
 using namespace Poco;
@@ -16,7 +16,7 @@ AbstractSequenceGenerator::StageList initList()
 {
     AbstractSequenceGenerator::StageList tmp;
 
-    tmp.push_back(AbstractSequenceGenerator::Stage("rec"));
+    tmp.push_back(AbstractSequenceGenerator::Stage("record"));
 
     return tmp;
 }
@@ -26,7 +26,7 @@ const AbstractSequenceGenerator::StageList AbstractSequenceGenerator::STAGES(ini
 // register the record sequence generators
 void BaseGeneratorSubsystem::registerGenerators()
 {
-    registerGenerator<TeraGen::RecGenerator>("rec");
+    registerGenerator<TeraGen::RecordGenerator>("record");
 }
 
 } // namespace Myriad
